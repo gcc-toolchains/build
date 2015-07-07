@@ -5,6 +5,7 @@ Support platforms
 ----------------------------------------
 
 a. arm_arm-eabi (for Linux kernel)
+
 b. arm_arm-linux-gnueabi (for C applications with glibc)
 
 Building arm-eabi-*
