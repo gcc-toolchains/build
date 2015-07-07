@@ -1,0 +1,46 @@
+#
+# Copyright (C) 2015 The Yudatun Open Source Project
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation
+#
+KERNEL_WORKSPACE := $(KERNEL_ABS_PATH)
+
+KERNEL_OUT := $(TOOLCHAINS_SYSROOT)
+KERNEL_CONFIG := $(KERNEL_OUT)/.config
+KERNEL_HEADERS_INSTALL := $(KERNEL_OUT)
+
+ifeq ($(strip $(TARGET_KERNEL_ARCH)),)
+KERNEL_ARCH := $(TARGET_TOOLCHAINS_ARCH)
+else
+KERNEL_ARCH := $(TARGET_KERNEL_ARCH)
+endif # TARGET_KERNEL_ARCH
+
+ifeq ($(strip $(TARGET_KERNEL_CROSS_COMPILE_PREFIX)),)
+KERNEL_CROSS_COMPILE := arm-eabi-
+else
+KERNEL_CROSS_COMPILE := $(TARGET_KERNEL_CROSS_COMPILE_PREFIX)
+endif # TARGET_KERNEL_COMPILE
+
+$(KERNEL_OUT):
+	mkdir -p $(KERNEL_OUT)
+
+$(KERNEL_CONFIG): $(KERNEL_OUT)
+	$(MAKE) -C $(KERNEL_WORKSPACE) O=$(KERNEL_OUT) \
+	  ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(KERNEL_CROSS_COMPILE) \
+	  $(KERNEL_DEFCONFIG)
+
+$(KERNEL_HEADERS_INSTALL): $(KERNEL_OUT) #$(KERNEL_CONFIG)
+	$(MAKE) -C $(KERNEL_WORKSPACE) O=$(KERNEL_OUT) \
+	  ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(KERNEL_CROSS_COMPILE) \
+	  headers_install
+
+kernelconfig: $(KERNEL_OUT) $(KERNEL_CONFIG)
+	env KCONFIG_NOTIMESTAMP=true \
+	     $(MAKE) -C $(KERNEL_WORKSPACE) O=$(KERNEL_OUT) \
+	       CROSS_COMPILE=$(KERNEL_CROSS_COMPILE) menuconfig
+	env KCONFIG_NOTIMESTAMP=true \
+	     $(MAKE) -C $(KERNEL_WORKSPACE) O=$(KERNEL_OUT) \
+	       CROSS_COMPILE=$(KERNEL_CROSS_COMPILE) savedefconfig
+	cp $(KERNEL_OUT)/defconfig $(KERNEL_WORKSPACE)/arch/arm/configs/$(KERNEL_DEFCONFIG)
