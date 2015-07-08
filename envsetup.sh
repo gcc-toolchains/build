@@ -191,6 +191,20 @@ function set_target_info()
     ENABLE_LD_DEFAULT=
     export ENABLE_GOLD=
     export ENABLE_LD_DEFAULT=yes
+
+    set_toolchains_paths
+}
+
+function set_toolchains_paths()
+{
+    T=$(gettop)
+    if [ ! "$T" ] ; then
+        echo "Couldn't locate the top of the tree. Try setting TOP."
+        return
+    fi
+
+    toolchains_prefix=$(get_build_var TOOLCHAINS_PREFIX)
+    export PATH=$toolchains_prefix/bin:$PATH
 }
 
 function print_config()

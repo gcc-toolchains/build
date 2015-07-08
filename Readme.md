@@ -4,12 +4,14 @@ Gcc Toolchains
 Support platforms
 ----------------------------------------
 
-a. arm_arm-eabi (for Linux kernel)
+* A. arm_arm-eabi (for Linux kernel)
 
-b. arm_arm-linux-gnueabi (for C applications with glibc)
+* B. arm_arm-linux-gnueabi (for C applications with glibc)
 
 Building arm-eabi-*
 ----------------------------------------
+
+#### Build
 
 ```
 $ . build/envsetup.sh
@@ -17,10 +19,16 @@ $ lunch 1
 $ make install -j8
 ```
 
+#### Install
+
+```
+$ ./build/install.sh default_toolchains_dir your_dir
+```
+
 Building arm-linux-gnueabi-*
 ----------------------------------------
 
-### Building glibc
+#### Building glibc
 
 ```
 $ . build/envsetup.sh
@@ -30,7 +38,7 @@ $ make install-target-minimal-libgcc -j[num]
 $ make install-target-glibc -j[num]
 ```
 
-### Modify libc.so and libpthread.so
+#### Modify libc.so and libpthread.so
 
 path: $(sysroot)/usr/lib/libc.so
 
@@ -52,10 +60,16 @@ OUTPUT_FORMAT(elf32-littlearm)
 GROUP ( /usr/lib/libpthread.so.0 /usr/lib/libpthread_nonshared.a )
 ```
 
-### Building toolchains
+#### Building toolchains
 
 ```
 $ make install -j[num]
+```
+
+#### Install
+
+```
+$ ./build/install.sh default_toolchains_dir your_dir
 ```
 
 Dependencies:
