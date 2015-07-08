@@ -34,6 +34,8 @@ Building arm-linux-gnueabi-*
 $ . build/envsetup.sh
 $ lunch 2
 $ make install-target-minimal-gcc -j[num]
+$ make install-target-glibc-headers -j[num]
+$ make install-target-glibc-csu -j[num]
 $ make install-target-minimal-libgcc -j[num]
 $ make install-target-glibc -j[num]
 ```

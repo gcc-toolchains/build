@@ -391,9 +391,6 @@ stamp-build-target-minimal-libgcc := $(TARGET_OUT_ROOT)/stamp-build-target-minim
 stamp-install-target-minimal-libgcc := $(TARGET_OUT_ROOT)/stamp-install-target-minimal-libgcc
 
 build-target-minimal-libgcc: $(stamp-build-target-minimal-libgcc)
-ifeq ($(TARGET), arm-linux-gnueabi)
-$(stamp-build-target-minimal-libgcc): install-target-glibc-headers install-target-glibc-csu
-endif
 $(stamp-build-target-minimal-libgcc): $(stamp-config-target-gcc)
 	$(MAKE) -C ${GCC_BUILD_PATH} \
 	  CFLAGS_FOR_TARGET="$(CFLAGS_FOR_TARGET)" \
