@@ -13,7 +13,7 @@ dst_dir=$2
 src_dir_len=`echo ${#src_dir}`
 
 STRIP_CMD="strip --strip-all"
-TARGET_STRIP_CMD="$TARGET-strip --strip-all"
+TARGET_STRIP_CMD="$TARGET-strip --strip-debug"
 
 function do_dir()
 {
