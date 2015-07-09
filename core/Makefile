@@ -255,7 +255,6 @@ INTERNAL_GCC_CONFIG_ARGS += \
     --disable-nls \
     --disable-libmudflap \
     --disable-libgomp \
-    --disable-libstdc__-v3 \
     --disable-sjlj-exceptions \
     --disable-libitm
 
@@ -314,6 +313,7 @@ INTERNAL_GCC_CONFIG_ARGS += \
     --enable-poison-system-directories
 else
 INTERNAL_GCC_CONFIG_ARGS += \
+    --disable-libstdc__-v3 \
     --disable-shared \
     --disable-tls
 endif
@@ -447,7 +447,8 @@ INTERNAL_GLIBC_CONFIG_ARGS := \
     libc_cv_arm_tls=yes \
     --disable-werror \
     --disable-profile \
-    --enable-add-ons
+    --enable-add-ons \
+    --enable-obsolete-rpc
 
 GLIBC_CONFIG_ARGS := \
     $(INTERNAL_GLIBC_CONFIG_ARGS) \
