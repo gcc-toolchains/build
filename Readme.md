@@ -8,6 +8,15 @@ Support platforms
 
 * B. arm_arm-linux-gnueabi (for C applications with glibc)
 
+Get Sources
+----------------------------------------
+
+```
+$ mkdir toolchains && cd toolchains
+$ repo init -u ssh://git@github.com/gcc-toolchains/manifest.git
+$ repo sync -j4
+```
+
 Building arm-eabi-*
 ----------------------------------------
 
@@ -25,12 +34,15 @@ $ make install -j8
 $ ./build/install.sh default_toolchains_dir your_dir
 ```
 
-Building arm-linux-gnueabi-*
+Building arm-linux-gnueabi-* with glibc
 ----------------------------------------
 
-#### Building glibc
+#### Building with glibc
+
+Building toolchains for special platform with glibc
 
 ```
+$ export WITH_SYSROOT=true
 $ . build/envsetup.sh
 $ lunch 2
 $ make install-target-minimal-gcc -j[num]
@@ -66,6 +78,23 @@ GROUP ( /usr/lib/libpthread.so.0 /usr/lib/libpthread_nonshared.a )
 
 ```
 $ make install -j[num]
+```
+
+#### Install
+
+```
+$ ./build/install.sh default_toolchains_dir your_dir
+```
+
+Building arm-linux-gnueabi-* without glibc
+----------------------------------------
+
+#### Build
+
+```
+$ . build/envsetup.sh
+$ lunch 2
+$ make install-target-minimal-gcc -j[num]
 ```
 
 #### Install

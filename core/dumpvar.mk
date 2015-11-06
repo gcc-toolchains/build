@@ -51,6 +51,7 @@ endif # CALLED_FROM_SETUP
 ifneq ($(PRINT_BUILD_CONFIG),)
 $(info )
 $(info +++++++++++++++++++++++++++++++++)
+$(info WITH_SYSROOT=$(WITH_SYSROOT))
 $(info TARGET=$(TARGET))
 $(info TARGET_TOOLCHAINS_ARCH=$(TARGET_TOOLCHAINS_ARCH))
 $(info TARGET_OS=$(TARGET_OS))

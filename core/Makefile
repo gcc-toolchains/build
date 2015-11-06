@@ -83,7 +83,7 @@ endif # ENABLE_LD_DEFAULT
 
 endif # ENABLE_GOLD
 
-ifneq ($(TARGET), arm-eabi)
+ifeq ($(WITH_SYSROOT), true)
 $(stamp-config-target-binutils): install-target-kernel-headers
 INTERNAL_BINUTILS_CONFIG_ARGS += \
     --with-sysroot=$(TOOLCHAINS_SYSROOT)
@@ -295,7 +295,7 @@ ifneq ($(ENABLE_GOLD),)
 INTERNAL_GCC_CONFIG_ARGS += --enable-gold=default
 endif
 
-ifneq ($(TARGET), arm-eabi)
+ifeq ($(WITH_SYSROOT), true)
 $(stamp-config-target-gcc): install-target-kernel-headers
 INTERNAL_GCC_CONFIG_ARGS += \
     --with-sysroot=$(TOOLCHAINS_SYSROOT)
