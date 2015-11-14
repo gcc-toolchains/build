@@ -42,7 +42,6 @@ Building arm-linux-gnueabi-* with glibc
 Building toolchains for special platform with glibc
 
 ```
-$ export WITH_SYSROOT=true
 $ . build/envsetup.sh
 $ lunch 2
 $ make install-target-minimal-gcc -j[num]
@@ -95,6 +94,9 @@ Building arm-linux-gnueabi-* without glibc
 $ . build/envsetup.sh
 $ lunch 2
 $ make install-target-minimal-gcc -j[num]
+$ make install-target-glibc-headers -j[num]
+$ make install-target-glibc-csu -j[num]
+$ make install-target-minimal-libgcc -j[num]
 ```
 
 #### Install

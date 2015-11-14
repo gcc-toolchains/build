@@ -46,3 +46,6 @@ function do_dir()
 }
 
 do_dir $src_dir
+
+echo "Delete $dst_dir/$TARGET/sysroot ..."
+rm -r $dst_dir/$TARGET/sysroot

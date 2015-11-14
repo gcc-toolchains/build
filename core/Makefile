@@ -83,7 +83,7 @@ endif # ENABLE_LD_DEFAULT
 
 endif # ENABLE_GOLD
 
-ifeq ($(WITH_SYSROOT), true)
+ifneq ($(TARGET), arm-eabi)
 $(stamp-config-target-binutils): install-target-kernel-headers
 INTERNAL_BINUTILS_CONFIG_ARGS += \
     --with-sysroot=$(TOOLCHAINS_SYSROOT)
@@ -295,7 +295,7 @@ ifneq ($(ENABLE_GOLD),)
 INTERNAL_GCC_CONFIG_ARGS += --enable-gold=default
 endif
 
-ifeq ($(WITH_SYSROOT), true)
+ifneq ($(TARGET), arm-eabi)
 $(stamp-config-target-gcc): install-target-kernel-headers
 INTERNAL_GCC_CONFIG_ARGS += \
     --with-sysroot=$(TOOLCHAINS_SYSROOT)
@@ -410,16 +410,12 @@ $(stamp-install-target-minimal-libgcc): $(stamp-build-target-minimal-libgcc)
 # target kernel headers rules
 .PHONY: install-target-kernel-headers
 
-include $(BUILD_SYSTEM)/kernel.mk
-
-ifeq ($(KERNEL_DEFCONFIG),)
-KERNEL_DEFCONFIG := bcm_defconfig
-endif # KERNEL_DEFCONFIG
-
 stamp-install-target-kernel-headers := $(TARGET_OUT_ROOT)/stamp-install-target-kernel-headers
 
 install-target-kernel-headers: $(stamp-install-target-kernel-headers)
-$(stamp-install-target-kernel-headers): $(KERNEL_HEADERS_INSTALL)
+$(stamp-install-target-kernel-headers):
+	mkdir -p $(TOOLCHAINS_SYSROOT)/usr/include
+	cp -rf $(WORKSPACE)/$(KERNEL_HEADERS_PATH)/* $(TOOLCHAINS_SYSROOT)/usr/include
 	$(STAMP) $@
 
 #=======================================
