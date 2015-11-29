@@ -444,7 +444,9 @@ INTERNAL_GLIBC_CONFIG_ARGS := \
     --disable-werror \
     --disable-profile \
     --enable-add-ons \
-    --enable-obsolete-rpc
+    --enable-shared \
+    --enable-obsolete-rpc \
+    --enable-stackguard-randomization
 
 GLIBC_CONFIG_ARGS := \
     $(INTERNAL_GLIBC_CONFIG_ARGS) \
